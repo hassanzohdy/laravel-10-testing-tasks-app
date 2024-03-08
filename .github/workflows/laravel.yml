@@ -45,7 +45,7 @@ jobs:
     - name: Run Queue
       run: php artisan queue:work --daemon
 
-    - name Seed
+    - name: Database Seeding
       run: php artisan db:seed
 
     - name: Run Tests
