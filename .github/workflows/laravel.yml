@@ -50,7 +50,7 @@ jobs:
       run: php artisan migrate
 
     - name: Run Queue
-      run: php artisan queue:work --daemon
+      run: php artisan queue:work --stop-when-empty &
 
     - name: Database Seeding
       run: php artisan db:seed
