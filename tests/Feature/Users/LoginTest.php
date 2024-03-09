@@ -33,5 +33,8 @@ class LoginTest extends TestCase
         ]);
 
         $response->assertStatus(302);
+
+        // redirect back to /login
+        $response->assertRedirect('/login');
     }
 }
