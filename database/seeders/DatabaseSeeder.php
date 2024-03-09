@@ -14,9 +14,6 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // Create 1000 users
-        User::factory(1000)->create();
-
         // create a static admin user
         User::create([
             'email' => 'admin@demo.com',
@@ -32,6 +29,9 @@ class DatabaseSeeder extends Seeder
             'name' => 'User',
             'is_admin' => false,
         ]);
+
+        // Create 1098 users
+        User::factory(1098)->create();
 
         // we will create 1000 tasks
         Task::factory(1000)->create();

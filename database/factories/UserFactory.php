@@ -17,6 +17,11 @@ class UserFactory extends Factory
     protected static ?string $password;
 
     /**
+     * Total Created Admin
+     */
+    protected static int $totalAdminsCreated = 0;
+
+    /**
      * Define the model's default state.
      *
      * @return array<string, mixed>
@@ -26,7 +31,7 @@ class UserFactory extends Factory
         return [
             'name' => fake()->name(),
             'email' => fake()->unique()->safeEmail(),
-            "is_admin" => fake()->boolean(),
+            "is_admin" => static::$totalAdminsCreated++ < 100 ? true : false,
             'password' => static::$password ??= Hash::make('password'),
         ];
     }
