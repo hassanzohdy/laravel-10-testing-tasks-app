@@ -1,17 +1,23 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Feature\Tasks;
 
+use App\Models\Task;
+use Tests\Utils\ActingAsUser;
 use Tests\TestCase;
 
 class CreateTaskTest extends TestCase
 {
+    use ActingAsUser;
+
     /**
      * Test successful created task
      */
     public function test_successful_created_task(): void
     {
-        $response = $this->post('/tasks/store', [
+        $lastTaskId = Task::latest()->first()->id;
+
+        $response = $this->actingAsAdmin()->post('/tasks/store', [
             'title' => 'Task $i',
             'description' => 'Successfully created task from test',
             'assigned_to' => 1,
@@ -20,6 +26,9 @@ class CreateTaskTest extends TestCase
         ]);
 
         $response->assertStatus(302);
+
+        // now remove any created task
+        Task::where('id', '>', $lastTaskId)->delete();
     }
 
     /**
@@ -27,7 +36,9 @@ class CreateTaskTest extends TestCase
      */
     public function test_successful_created_task_json(): void
     {
-        $response = $this->post('/tasks/store', [
+        $lastTaskId = Task::latest()->first()->id;
+
+        $response = $this->actingAsAdmin()->post('/tasks/store', [
             'title' => 'Task $i',
             'description' => 'Successfully created task from test',
             'assigned_to' => 1,
@@ -37,6 +48,9 @@ class CreateTaskTest extends TestCase
         ]);
 
         $response->assertStatus(200);
+
+        // now remove any created task
+        Task::where('id', '>', $lastTaskId)->delete();
     }
 
     /**
@@ -44,7 +58,7 @@ class CreateTaskTest extends TestCase
      */
     public function test_user_does_not_exist(): void
     {
-        $response = $this->post('/tasks/store', [
+        $response = $this->actingAsAdmin()->post('/tasks/store', [
             'title' => 'Task $i',
             'description' => 'Successfully created task from test',
             'assigned_to' => 1001111,

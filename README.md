@@ -42,10 +42,46 @@ php artisan db:seed
 
 Run the app using `php artisan serve` and navigate to `http://localhost:8000/` in your browser.
 
+## Authentication
+
+Use the following credentials to login:
+
+```bash
+// Admin
+email: admin@demo.com
+password: password
+
+// User
+email: user@demo.com
+password: password
+```
+
+## Authorization
+
+A `User` must be logged in to access any task, whereas only `Admin` can create a new task.
+
+
+## Used Technologies & References
+
+- VS Code
+- Laravel 10
+- MYSQL
+- PHP 8.2
+- Composer 2
+- Github Copilot
+- Github Actions
+- Chat GPT
+- Laravel Docs
+
 ## Testing
 
 You can run the tests using the following command:
 
 ```bash
 php artisan test
+```
+
+## License
+
+The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
 ```

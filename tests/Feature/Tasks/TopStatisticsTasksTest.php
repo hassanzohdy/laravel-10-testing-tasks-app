@@ -5,11 +5,12 @@
  * the statistics are updated in the background.
  */
 
-namespace Tests\Feature;
+namespace Tests\Feature\Tasks;
 
 use App\Models\Statistics;
 use App\Models\Task;
 use App\Models\User;
+use Tests\Utils\ActingAsUser;
 use Tests\TestCase;
 
 class TopStatisticsTasksTest extends TestCase
@@ -33,6 +34,8 @@ class TopStatisticsTasksTest extends TestCase
         $admin = User::where('is_admin', 1)->first();
 
         if ($remaining > 0) {
+            $lastTaskId = Task::latest()->first()->id;
+
             // now we need to create the remaining tasks for the second user + 1
             // then we will check if the second user is now the top user
             for ($i = 0; $i < $remaining + 1; $i++) {
@@ -58,6 +61,9 @@ class TopStatisticsTasksTest extends TestCase
             $this->assertEquals($topUser->user_id, $newSecondUser->user_id);
 
             $this->assertEquals($secondUser->user_id, $newTopUser->user_id);
+
+            // now remove any created task
+            Task::where('id', '>', $lastTaskId)->delete();
         } else {
             $this->assertTrue(true);
         }

@@ -1,17 +1,20 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Feature\Tasks;
 
+use Tests\Utils\ActingAsUser;
 use Tests\TestCase;
 
 class ListEmptyTasksTest extends TestCase
 {
+    use ActingAsUser;
+
     /**
      * A Test for empty tasks list
      */
     public function test_empty_tasks_list(): void
     {
-        $response = $this->get('/tasks?assigned_to=UNKNOWN_USER_ID');
+        $response = $this->actingAsUser()->get('/tasks?assigned_to=UNKNOWN_USER_ID');
 
         $response->assertStatus(200);
 
@@ -26,7 +29,7 @@ class ListEmptyTasksTest extends TestCase
      */
     public function test_empty_tasks_list_json(): void
     {
-        $response = $this->get('/tasks?assigned_to=UNKNOWN_USER_ID&json=1');
+        $response = $this->actingAsUser()->get('/tasks?assigned_to=UNKNOWN_USER_ID&json=1');
 
         $response->assertStatus(200);
 

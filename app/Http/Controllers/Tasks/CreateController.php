@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Tasks;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\TaskCreateRequest;
+use App\Http\Requests\Tasks\TaskCreateRequest;
 use App\Models\Task;
 use App\Models\User;
 

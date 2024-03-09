@@ -1,17 +1,16 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Users;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class TaskCreateRequest extends FormRequest
+class LoginRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        // For demo purposes, we will allow anyone to create a task
         return true;
     }
 
@@ -23,11 +22,8 @@ class TaskCreateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "title" => "required|string",
-            "description" => "required|string",
-            "assigned_to" => "required|exists:users,id",
-            "admin_id" => "required|exists:users,id",
-            "status" => "in:open,closed",
+            "email" => "required|email|exists:users,email",
+            "password" => "required|string",
         ];
     }
 }

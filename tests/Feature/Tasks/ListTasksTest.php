@@ -1,19 +1,20 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Feature\Tasks;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
+use Tests\Utils\ActingAsUser;
 use Tests\TestCase;
 
 class ListTasksTest extends TestCase
 {
+    use ActingAsUser;
+
     /**
      * Test the existing tasks list.
      */
     public function test_existing_tasks_list(): void
     {
-        $response = $this->get('/tasks');
+        $response = $this->actingAsUser()->get('/tasks');
 
         $response->assertStatus(200);
 
@@ -27,7 +28,7 @@ class ListTasksTest extends TestCase
      */
     public function test_existing_tasks_list_json(): void
     {
-        $response = $this->get('/tasks?json=1');
+        $response = $this->actingAsUser()->get('/tasks?json=1');
 
         $response->assertStatus(200);
 
