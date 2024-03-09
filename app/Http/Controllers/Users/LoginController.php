@@ -13,6 +13,10 @@ class LoginController extends Controller
      */
     public function show()
     {
+        if (Auth::check()) {
+            return redirect()->route('tasks.list');
+        }
+
         return view('users.login');
     }
 
@@ -27,6 +31,7 @@ class LoginController extends Controller
             return redirect()->route('tasks.list');
         }
 
-        return redirect()->route('login')->with('error', 'Invalid credentials');
+        // add error message: Invalid credentials to errors list when redirecting
+        return redirect()->route('login')->withErrors(['Invalid credentials']);
     }
 }
