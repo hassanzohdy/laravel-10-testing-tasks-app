@@ -14,10 +14,14 @@ class CreateController extends Controller
      */
     public function show()
     {
+        // Assuming: Logged In User can access this request
+        // Assuming: Only User with admin role can access this request
+
         // THIS IS AN EXTREMELY BAD PRACTICE
         // It is just used for the sake of the task purpose
         // In real world, both administrators and users should be lazy `searched` from the database
         $allUsers = User::all();
+
         [$admin, $users] = $allUsers->partition(fn ($user) => $user->is_admin);
 
         return view('tasks.create', [
